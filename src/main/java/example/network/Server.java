@@ -155,6 +155,7 @@ public class Server {
                     ooslist.get(0).writeObject("tie");
                     ooslist.get(1).writeObject("tie");
                     isFinish = true;
+                    System.out.println("There is a tie!");
                 }
                 else if ( win == 1 ) {
                     ooslist.get(0).writeObject("result");
@@ -162,6 +163,7 @@ public class Server {
                     ooslist.get(0).writeObject("you win");
                     ooslist.get(1).writeObject("you lose");
                     isFinish = true;
+                    System.out.println("The first player is the winner!");
                 }
                 else if ( win == 2 ) {
                     ooslist.get(0).writeObject("result");
@@ -169,6 +171,7 @@ public class Server {
                     ooslist.get(0).writeObject("you lose");
                     ooslist.get(1).writeObject("you win");
                     isFinish = true;
+                    System.out.println("The second player is the winner!");
                 }
 
                 //else the game must go on
@@ -185,6 +188,7 @@ public class Server {
 
             //the game is finished
             //i have to close every streams and socket
+            System.out.println("The server is closing all the connection...");
             ooslist.get(0).close();
             ooslist.get(1).close();
             oislist.get(0).close();

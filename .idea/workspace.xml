@@ -2,13 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e68d94f8-f7c3-4e0e-8323-f2b427d09de7" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/example/network/Client.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/example/network/Server.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/example/view/CLI.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/example/view/UI.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/example/App.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/example/AppTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/example/controller/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/example/controller/Game.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/example/network/Server.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/example/network/Server.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -97,7 +93,7 @@
       <option name="presentableId" value="Default" />
       <updated>1584054807862</updated>
       <workItem from="1584054809820" duration="919000" />
-      <workItem from="1584098737744" duration="1088000" />
+      <workItem from="1584098737744" duration="1424000" />
     </task>
     <task id="LOCAL-00001" summary="create the model and the controller">
       <created>1584099040075</created>
@@ -106,7 +102,14 @@
       <option name="project" value="LOCAL" />
       <updated>1584099040075</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="start the network">
+      <created>1584099885903</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1584099885903</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -114,17 +117,18 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="create the model and the controller" />
-    <option name="LAST_COMMIT_MESSAGE" value="create the model and the controller" />
+    <MESSAGE value="start the network" />
+    <option name="LAST_COMMIT_MESSAGE" value="start the network" />
   </component>
   <component name="WindowStateProjectService">
     <state x="137" y="19" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1584099584384">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="137" y="19" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1366.728@0.0.1366.728" timestamp="1584099584384" />
-    <state x="308" y="0" key="CommitChangelistDialog2" timestamp="1584099037722">
+    <state x="308" y="0" key="CommitChangelistDialog2" timestamp="1584099883291">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state x="308" y="0" key="CommitChangelistDialog2/0.0.1366.728@0.0.1366.728" timestamp="1584099037722" />
+    <state x="308" y="0" key="CommitChangelistDialog2/0.0.1366.728@0.0.1366.728" timestamp="1584099883291" />
     <state width="1323" height="178" key="GridCell.Tab.0.bottom" timestamp="1584099801027">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
@@ -141,13 +145,17 @@
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state width="1323" height="178" key="GridCell.Tab.0.right/0.0.1366.728@0.0.1366.728" timestamp="1584099801027" />
-    <state x="275" y="97" key="Vcs.Push.Dialog.v2" timestamp="1584099067754">
+    <state x="275" y="97" key="Vcs.Push.Dialog.v2" timestamp="1584099894604">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state x="275" y="97" key="Vcs.Push.Dialog.v2/0.0.1366.728@0.0.1366.728" timestamp="1584099067754" />
+    <state x="275" y="97" key="Vcs.Push.Dialog.v2/0.0.1366.728@0.0.1366.728" timestamp="1584099894604" />
     <state x="379" y="188" key="com.intellij.ide.util.TipDialog" timestamp="1584098744438">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="379" y="188" key="com.intellij.ide.util.TipDialog/0.0.1366.728@0.0.1366.728" timestamp="1584098744438" />
+    <state x="404" y="155" key="git4idea.merge.GitPullDialog" timestamp="1584100161750">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="404" y="155" key="git4idea.merge.GitPullDialog/0.0.1366.728@0.0.1366.728" timestamp="1584100161750" />
   </component>
 </project>

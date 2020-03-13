@@ -35,6 +35,7 @@ public class Game {
                 if ( gameboard.getBoard()[4][4] != ' ' ) result = false;
                 break;
             default:
+                result = false;
                 break;
         }
         return result;
