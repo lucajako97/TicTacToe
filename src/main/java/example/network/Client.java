@@ -6,29 +6,30 @@ import example.view.UI;
 import java.io.*;
 import java.net.InetAddress;
 import java.net.Socket;
-import java.net.UnknownHostException;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Client {
 
-    public static void main(String[] args) throws UnknownHostException {
+    public static void main(String[] args) {
         int port = 12345;
         short whereTheSymbol = 0;
-        InetAddress host = InetAddress.getLocalHost();
-        //String playerName = "null";
+        ObjectOutputStream oos = null;
+        ObjectInputStream ois = null;
+        Socket socket = null;
         UI cli = new CLI();
 
         try {
+            InetAddress host = InetAddress.getLocalHost();
             //initializing the socket connection with the server
-            Socket socket = new Socket(host, port);
+            socket = new Socket(host, port);
             Scanner scanner = new Scanner(System.in);
             String s;
             System.out.println("Welcome to the TicTacToc game");
 
             //create the streams to link to the server
-            ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());
-            ObjectInputStream ois = new ObjectInputStream(socket.getInputStream());
+            oos = new ObjectOutputStream(socket.getOutputStream());
+            ois = new ObjectInputStream(socket.getInputStream());
             boolean in = true;
 
             //the client insert a nickname and he has to rewrite it, if it is already chosen
@@ -156,13 +157,38 @@ public class Client {
 
             //the game is finished, close the streams and the socket connection
             System.out.println("We will see at the next match! ;)");
-            oos.close();
-            ois.close();
-            socket.close();
+            //oos.close();
+            //ois.close();
+            //socket.close();
 
         } catch (IOException | ClassNotFoundException e) {
-            e.printStackTrace();
+            System.out.println("The server connection is down...");
+            System.out.println("Try again...");
+        } finally {
+
+            try {
+                System.out.println("Closing the output stream...");
+                oos.close();
+            } catch (IOException | NullPointerException e) {
+                System.out.println("The output stream is not been set up ...");
+                System.out.println("Or it was open when the connection crashed...");
+            }
+            try {
+                System.out.println("Closing the input stream...");
+                ois.close();
+            } catch (IOException | NullPointerException e) {
+                System.out.println("The input stream is not been set up ...");
+                System.out.println("Or it was open when the connection crashed...");
+            }
+            try {
+                System.out.println("Closing the socket...");
+                socket.close();
+            } catch (IOException | NullPointerException e) {
+                System.out.println("The socket is not been set up ...");
+            }
+
         }
-    }
+
+    }// END OF MAIN
 
 }

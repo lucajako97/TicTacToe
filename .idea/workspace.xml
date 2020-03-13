@@ -4,7 +4,6 @@
     <list default="true" id="e68d94f8-f7c3-4e0e-8323-f2b427d09de7" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/example/network/Client.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/example/network/Client.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/example/network/Server.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/example/network/Server.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -93,7 +92,8 @@
       <option name="presentableId" value="Default" />
       <updated>1584054807862</updated>
       <workItem from="1584054809820" duration="919000" />
-      <workItem from="1584098737744" duration="3945000" />
+      <workItem from="1584098737744" duration="5342000" />
+      <workItem from="1584118751973" duration="842000" />
     </task>
     <task id="LOCAL-00001" summary="create the model and the controller">
       <created>1584099040075</created>
@@ -116,7 +116,14 @@
       <option name="project" value="LOCAL" />
       <updated>1584100217778</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="little fix to the network, a control to avoid a string input from the player during the match">
+      <created>1584102818037</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1584102818037</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -126,44 +133,45 @@
     <MESSAGE value="create the model and the controller" />
     <MESSAGE value="start the network" />
     <MESSAGE value="little fixes to the controller" />
-    <option name="LAST_COMMIT_MESSAGE" value="little fixes to the controller" />
+    <MESSAGE value="little fix to the network, a control to avoid a string input from the player during the match" />
+    <option name="LAST_COMMIT_MESSAGE" value="little fix to the network, a control to avoid a string input from the player during the match" />
   </component>
   <component name="WindowStateProjectService">
     <state x="137" y="19" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1584099584384">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="137" y="19" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1366.728@0.0.1366.728" timestamp="1584099584384" />
-    <state x="308" y="0" key="CommitChangelistDialog2" timestamp="1584100215072">
+    <state x="308" y="0" key="CommitChangelistDialog2" timestamp="1584102815763">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state x="308" y="0" key="CommitChangelistDialog2/0.0.1366.728@0.0.1366.728" timestamp="1584100215072" />
-    <state width="1323" height="188" key="GridCell.Tab.0.bottom" timestamp="1584102607780">
+    <state x="308" y="0" key="CommitChangelistDialog2/0.0.1366.728@0.0.1366.728" timestamp="1584102815763" />
+    <state width="1323" height="188" key="GridCell.Tab.0.bottom" timestamp="1584119591685">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1323" height="188" key="GridCell.Tab.0.bottom/0.0.1366.728@0.0.1366.728" timestamp="1584102607780" />
-    <state width="1323" height="188" key="GridCell.Tab.0.center" timestamp="1584102607780">
+    <state width="1323" height="188" key="GridCell.Tab.0.bottom/0.0.1366.728@0.0.1366.728" timestamp="1584119591685" />
+    <state width="1323" height="188" key="GridCell.Tab.0.center" timestamp="1584119591685">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1323" height="188" key="GridCell.Tab.0.center/0.0.1366.728@0.0.1366.728" timestamp="1584102607780" />
-    <state width="1323" height="188" key="GridCell.Tab.0.left" timestamp="1584102607775">
+    <state width="1323" height="188" key="GridCell.Tab.0.center/0.0.1366.728@0.0.1366.728" timestamp="1584119591685" />
+    <state width="1323" height="188" key="GridCell.Tab.0.left" timestamp="1584119591685">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1323" height="188" key="GridCell.Tab.0.left/0.0.1366.728@0.0.1366.728" timestamp="1584102607775" />
-    <state width="1323" height="188" key="GridCell.Tab.0.right" timestamp="1584102607780">
+    <state width="1323" height="188" key="GridCell.Tab.0.left/0.0.1366.728@0.0.1366.728" timestamp="1584119591685" />
+    <state width="1323" height="188" key="GridCell.Tab.0.right" timestamp="1584119591685">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1323" height="188" key="GridCell.Tab.0.right/0.0.1366.728@0.0.1366.728" timestamp="1584102607780" />
-    <state x="275" y="97" key="Vcs.Push.Dialog.v2" timestamp="1584100234490">
+    <state width="1323" height="188" key="GridCell.Tab.0.right/0.0.1366.728@0.0.1366.728" timestamp="1584119591685" />
+    <state x="275" y="97" key="Vcs.Push.Dialog.v2" timestamp="1584102825372">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state x="275" y="97" key="Vcs.Push.Dialog.v2/0.0.1366.728@0.0.1366.728" timestamp="1584100234490" />
-    <state x="379" y="188" key="com.intellij.ide.util.TipDialog" timestamp="1584098744438">
+    <state x="275" y="97" key="Vcs.Push.Dialog.v2/0.0.1366.728@0.0.1366.728" timestamp="1584102825372" />
+    <state x="379" y="188" key="com.intellij.ide.util.TipDialog" timestamp="1584118813714">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state x="379" y="188" key="com.intellij.ide.util.TipDialog/0.0.1366.728@0.0.1366.728" timestamp="1584098744438" />
-    <state x="404" y="155" key="git4idea.merge.GitPullDialog" timestamp="1584102702316">
+    <state x="379" y="188" key="com.intellij.ide.util.TipDialog/0.0.1366.728@0.0.1366.728" timestamp="1584118813714" />
+    <state x="404" y="155" key="git4idea.merge.GitPullDialog" timestamp="1584119671692">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state x="404" y="155" key="git4idea.merge.GitPullDialog/0.0.1366.728@0.0.1366.728" timestamp="1584102702316" />
+    <state x="404" y="155" key="git4idea.merge.GitPullDialog/0.0.1366.728@0.0.1366.728" timestamp="1584119671692" />
   </component>
 </project>
