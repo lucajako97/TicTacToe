@@ -7,13 +7,14 @@ import java.io.*;
 import java.net.InetAddress;
 import java.net.Socket;
 import java.net.UnknownHostException;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Client {
 
     public static void main(String[] args) throws UnknownHostException {
         int port = 12345;
-        short whereTheSymbol;
+        short whereTheSymbol = 0;
         InetAddress host = InetAddress.getLocalHost();
         //String playerName = "null";
         UI cli = new CLI();
@@ -93,11 +94,26 @@ public class Client {
                         cli.printTable();
                         break;
                     case "your turn":
-
+                        System.out.println("It is your turn!");
                         while (in) {
+
                             //i have to decide where put my symbol (1-9)
-                            System.out.println("Choose the space from 1 to 9, where put your symbol: ");
-                            whereTheSymbol = scanner.nextShort();
+                            boolean goOn = false;
+                            while (!goOn) {
+                                goOn = true;
+                                try {
+
+                                    System.out.println("Choose the space from 1 to 9, where put your symbol: ");
+                                    whereTheSymbol = scanner.nextShort();
+
+                                } catch (InputMismatchException e) {
+                                    System.out.println("Invalid type, please insert a number...");
+                                    goOn = false;
+                                    scanner.nextLine();
+                                }
+
+                            }
+
                             oos.writeObject(whereTheSymbol);
 
                             //and waiting the server check
@@ -139,6 +155,7 @@ public class Client {
             }
 
             //the game is finished, close the streams and the socket connection
+            System.out.println("We will see at the next match! ;)");
             oos.close();
             ois.close();
             socket.close();

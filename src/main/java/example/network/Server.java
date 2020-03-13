@@ -188,7 +188,7 @@ public class Server {
 
             //the game is finished
             //i have to close every streams and socket
-            System.out.println("The server is closing all the connection...");
+            System.out.println("The server is closing all the connections...");
             ooslist.get(0).close();
             ooslist.get(1).close();
             oislist.get(0).close();
