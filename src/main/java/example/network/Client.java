@@ -59,6 +59,7 @@ public class Client {
             System.out.println("Waiting for the other client...");
             while (!s.equals("start")) {
                 s = (String) ois.readObject();
+                oos.writeObject("keep alive");
             }
 
             //the game can start
@@ -148,6 +149,11 @@ public class Client {
                             System.out.println("You are the loser! I'm sorry :( ");
                         in = false;
                         break;
+                    case "keep alive":
+                        //only to keep alive the connection
+                        //oos.writeObject("keep alive");
+                    case "you win for retired":
+                        System.out.println("You are the winner! The other player is retired!! Congratulations!! :D ");
                     default:
                         System.out.println("This is the default case, something is going wrong!?");
                         break;
@@ -157,13 +163,11 @@ public class Client {
 
             //the game is finished, close the streams and the socket connection
             System.out.println("We will see at the next match! ;)");
-            //oos.close();
-            //ois.close();
-            //socket.close();
 
         } catch (IOException | ClassNotFoundException e) {
             System.out.println("The server connection is down...");
             System.out.println("Try again...");
+
         } finally {
 
             try {

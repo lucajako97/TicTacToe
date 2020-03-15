@@ -4,32 +4,33 @@ import example.controller.Game;
 import example.model.Table;
 
 import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
-import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Server {
 
 
+
     public static void main(String[] args) {
         //initializing the variables of server
         int port = 12345;
-        short numberOfPlayers = 0;
         short turnOfPlayerNumber;
-        boolean in = true;
+        boolean in;
+        boolean goodNickname;
         boolean isFinish = false;
         boolean rightMove;
         String s;
+        List<ClientForServer> players = new ArrayList<>();
+        /*
         List<Socket> players = new ArrayList<>();
         List<String> playersName = new ArrayList<>();
         List<ObjectOutputStream> ooslist = new ArrayList<>();
         List<ObjectInputStream> oislist = new ArrayList<>();
-
+        */
         Table gameTable = new Table();
         Game controller = new Game();
+        HandlerConnection handlerConnection = new HandlerConnection();
 
         try {
             //initializing the server
@@ -37,53 +38,51 @@ public class Server {
             System.out.println("Server is ready to receive the client!");
 
             //receiving the clients
-            while (numberOfPlayers < 2) {
+            while (players.size() < 2) {
+                goodNickname = false;
+                System.out.println("Waiting to receive the #" + (players.size()+1) + " player...");
+                ClientForServer clientForServer = new ClientForServer(serverSocket.accept());
+                players.add(clientForServer);
 
-                if (numberOfPlayers == 0) {
-                    players.add(0, serverSocket.accept());
-                    ooslist.add(0, new ObjectOutputStream(players.get(0).getOutputStream()));
-                    oislist.add(0, new ObjectInputStream(players.get(0).getInputStream()));
-                    System.out.println("Attempt to receive the player's nickname...");
-                    s = (String) oislist.get(0).readObject();
+                while ( !goodNickname ) {
 
-                    //it is the only player so i can confirm his choice
-                    ooslist.get(0).writeObject("ok");
-                    playersName.add(0, s);
-                    System.out.println("The first player has chosen the nickname: " + playersName.get(0));
-                }
-                else if(numberOfPlayers == 1) {
+                    System.out.println("Attempt to receive the #" + players.size() + " player's nickname...");
 
-                    players.add(1, serverSocket.accept());
-                    ooslist.add(1, new ObjectOutputStream(players.get(1).getOutputStream()));
-                    oislist.add(1, new ObjectInputStream(players.get(1).getInputStream()));
-                    System.out.println("Attempt to receive the player's nickname...");
+                    try {
+                        s = (String) players.get(players.size()-1).getOis().readObject();
+                        //i have to check if it is already present in the other players
+                        //i have to check the connection and the nickname
+                        handlerConnection.checkTheConnections(players);
+                        goodNickname = handlerConnection.checkNickname(s, players);
 
-                    while (in) {
+                        if ( goodNickname ) {
+                            players.get(players.size()-1).getOos().writeObject("ok");
+                            players.get(players.size()-1).setNickname(s);
+                            System.out.println("The #" + players.size() + " player has chosen the nickname: " + players.get(players.size()-1).getNickname());
 
-                        s = (String) oislist.get(1).readObject();
-
-                        //i have to check if it is present or not
-                        if (!s.equals(playersName.get(0))) {
-                            //it is different so it is valid
-                            ooslist.get(1).writeObject("ok");
-                            playersName.add(1, s);
-                            System.out.println("The first player has chosen the nickname: " + playersName.get(1));
-                            in = false;
                         }
                         else {
-                            //it is already chosen, so it is not valid
-                            ooslist.get(1).writeObject("not ok");
+                            players.get(players.size()-1).getOos().writeObject("not ok");
+                            System.out.println("The # " + players.size() + " player has chosen an invalid nickname...");
+
                         }
 
+                    } catch ( IOException e) {
+                        System.out.println("The #" + players.size() + " player is disconnected...");
+                        players.get(players.size()-1).getSocket().close();
+                        players.remove(players.size()-1);
+                        goodNickname = true;
                     }
 
                 }
-                numberOfPlayers++;
+
             }
 
             //the game can start
-            ooslist.get(0).writeObject("start");
-            ooslist.get(1).writeObject("start");
+            players.get(0).getOos().writeObject("start");
+            players.get(0).getOis().readObject();
+            players.get(1).getOos().writeObject("start");
+            players.get(1).getOis().readObject();
             System.out.println("The game is going to start!");
             turnOfPlayerNumber = 1;
 
@@ -97,47 +96,46 @@ public class Server {
                     }
                     System.out.println();
                 }
-                System.out.println("The player number " + turnOfPlayerNumber + "has to make a move...");
-                System.out.println();
+                System.out.println("The player number " + turnOfPlayerNumber + ": [" + players.get(turnOfPlayerNumber-1).getNickname() + "] has to make a move...");
+                //System.out.println();
 
                 //send the table
-                ooslist.get(0).writeObject("map");
-                ooslist.get(1).writeObject("map");
+                players.get(0).getOos().writeObject("map");
+                players.get(1).getOos().writeObject("map");
                 int i = 0;
                 int j = 0;
                 while ( i < 5 ) {
                     while ( j < 5 ) {
-                        ooslist.get(0).writeObject(gameTable.getBoard()[i][j]);
-                        ooslist.get(1).writeObject(gameTable.getBoard()[i][j]);
+                        players.get(0).getOos().writeObject(gameTable.getBoard()[i][j]);
+                        players.get(1).getOos().writeObject(gameTable.getBoard()[i][j]);
                         j = j + 2;
                     }
                     j = 0;
                     i = i + 2;
                 }
 
-
                 //send the "your turn" to the actual player
-                ooslist.get(turnOfPlayerNumber-1).writeObject("your turn");
+                players.get(turnOfPlayerNumber-1).getOos().writeObject("your turn");
 
                 //send the "not your turn" to the actual player
-                if (turnOfPlayerNumber == 1) ooslist.get(1).writeObject("not your turn");
-                else ooslist.get(0).writeObject("not your turn");
+                if (turnOfPlayerNumber == 1) players.get(1).getOos().writeObject("not your turn");
+                else players.get(0).getOos().writeObject("not your turn");
                 in = true;
 
                 while (in) {
                     //waiting a response
-                    short pos = (short) oislist.get(turnOfPlayerNumber-1).readObject();
+                    short pos = (short) players.get(turnOfPlayerNumber-1).getOis().readObject();
                     rightMove = controller.rightMove( gameTable , pos);
 
                     //check the response
                     if (rightMove) {
                         //respond "valid"
                         controller.updateTheTable(gameTable, turnOfPlayerNumber, pos);
-                        ooslist.get(turnOfPlayerNumber-1).writeObject("ok");
+                        players.get(turnOfPlayerNumber-1).getOos().writeObject("ok");
                         in = false;
                     }
                     else
-                        ooslist.get(turnOfPlayerNumber-1).writeObject("not ok");
+                        players.get(turnOfPlayerNumber-1).getOos().writeObject("not ok");
 
                 }
 
@@ -145,33 +143,42 @@ public class Server {
                 short tie = controller.isTie(gameTable);
                 short win = controller.thereIsAWinner(gameTable);
 
+                //i have to control also if there is a disconnected player
+
+                short disconnection = (short) handlerConnection.whichIsNotDisconnected(players);
+
                 //0 is tie
                 //1 the winner is the first player
                 //2 the winner is the second player
                 //3 there is no tie and no a winner
                 if ( tie == 0 ) {
-                    ooslist.get(0).writeObject("result");
-                    ooslist.get(1).writeObject("result");
-                    ooslist.get(0).writeObject("tie");
-                    ooslist.get(1).writeObject("tie");
+                    players.get(0).getOos().writeObject("result");
+                    players.get(1).getOos().writeObject("result");
+                    players.get(0).getOos().writeObject("tie");
+                    players.get(1).getOos().writeObject("tie");
                     isFinish = true;
                     System.out.println("There is a tie!");
                 }
                 else if ( win == 1 ) {
-                    ooslist.get(0).writeObject("result");
-                    ooslist.get(1).writeObject("result");
-                    ooslist.get(0).writeObject("you win");
-                    ooslist.get(1).writeObject("you lose");
+                    players.get(0).getOos().writeObject("result");
+                    players.get(1).getOos().writeObject("result");
+                    players.get(0).getOos().writeObject("you win");
+                    players.get(1).getOos().writeObject("you lose");
                     isFinish = true;
                     System.out.println("The first player is the winner!");
                 }
                 else if ( win == 2 ) {
-                    ooslist.get(0).writeObject("result");
-                    ooslist.get(1).writeObject("result");
-                    ooslist.get(0).writeObject("you lose");
-                    ooslist.get(1).writeObject("you win");
+                    players.get(0).getOos().writeObject("result");
+                    players.get(1).getOos().writeObject("result");
+                    players.get(0).getOos().writeObject("you lose");
+                    players.get(1).getOos().writeObject("you win");
                     isFinish = true;
                     System.out.println("The second player is the winner!");
+                }
+                else if ( disconnection != -1) {
+                    // there is a disconnection
+                    players.get(disconnection).getOos().writeObject("you win for retired");
+                    isFinish = true;
                 }
 
                 //else the game must go on
@@ -184,20 +191,49 @@ public class Server {
                     turnOfPlayerNumber = 1;
                 }
 
-            }//end while ISFINISH
+            }//end while isFinish
 
             //the game is finished
             //i have to close every streams and socket
             System.out.println("The server is closing all the connections...");
-            ooslist.get(0).close();
-            ooslist.get(1).close();
-            oislist.get(0).close();
-            oislist.get(1).close();
-            players.get(0).close();
-            players.get(1).close();
+            players.get(0).closeConnections();
+            players.get(1).closeConnections();
+
+            while (players.size() != 0) {
+                players.remove(0);
+            }
+
             serverSocket.close();
+
         } catch (IOException | ClassNotFoundException e) {
-            e.printStackTrace();
+            //here i have to check how is the player who is disconnected
+            if (isFinish) {
+                e.printStackTrace();
+            } else {
+
+                int number = handlerConnection.whichIsNotDisconnected(players);
+                try {
+                    players.get(number).getOos().writeObject("you win for retired");
+                    players.get(number).closeConnections();
+                    players.remove(number);
+                    players.remove(0);
+                    System.out.println("The player #" + number + " has win because the other one retired");
+
+                } catch (IOException e1) {
+                    System.out.println("Every player is disconnected...");
+                }
+
+            }
+
         }
+        finally {
+
+            while (players.size() != 0) {
+                players.remove(0);
+            }
+
+        }
+
     }
+
 }
